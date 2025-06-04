@@ -8,7 +8,7 @@ The program repeatedly sums the numbers from 1 to 10,000,000, printing the resul
 
 ## How to Use
 
-1. Copy the contents of `bench2.bas` to your PicoMite or compatible device running MMBasic.
+1. Copy the contents of `benchmarkV1.bas` to your PicoMite or compatible device running MMBasic.
 2. Run the program using the MMBasic interpreter.
 3. The program will display the sum and how long each iteration took.
 4. To stop the test, press `CTRL+C`.
@@ -16,7 +16,7 @@ The program repeatedly sums the numbers from 1 to 10,000,000, printing the resul
 ## Example Output
 
 ```
-Simple CPU stress test. Press CTRL+C to stop.
+Simple CPU stress test. Press Shift+Esc to stop.
 Iteration complete. Sum=50000005000000
 Time taken: 2.34 seconds
 Press Shift+Esc to stop or wait for the next iteration.
