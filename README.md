@@ -2,7 +2,7 @@
 A bunch of mmbasic applications for the PicoCalc. 
 
 ## Requirements
-- PicoMite or compatible device
+- PicoCalc or compatible device
 - MMBasic firmware 6.0002+
 
 ## License
