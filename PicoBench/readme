@@ -1,0 +1,73 @@
+# PicoBench 4.0  
+**CPU Stress Test for MMBasic/Pico**
+
+---
+
+## What is PicoBench?
+
+**PicoBench** is a CPU benchmarking and stress-testing program written in MMBasic for the Raspberry Pi Pico and compatible systems. It is designed to test the performance of your microcontroller by running a variety of mathematical workloads and reporting how long they take to complete.
+
+---
+
+## Features
+
+- **25 Different Math Modes:**  
+  Test everything from trigonometric functions to sorting, matrix multiplication, prime testing, and more.
+- **Progress Bar:**  
+  See a visual indication of progress during each benchmark run.
+- **Info Menu:**  
+  View detailed descriptions of each math mode and what it tests.
+- **Simple Menu System:**  
+  Easy to use, with options to run benchmarks, view info, or exit.
+
+---
+
+## How to Use
+
+1. **Start the Program:**  
+   Load and run PicoBench4.0.bas on your MMBasic-compatible device.
+
+2. **Main Menu Options:**  
+   - **1. Run Benchmark:**  
+     Select a math mode (1-25) and the benchmark will run, showing progress and timing.
+   - **2. Info: Math Modes:**  
+     View detailed explanations of each math mode.
+   - **3. Exit:**  
+     Quit the program.
+
+3. **During Benchmark:**  
+   - A progress bar will show how far along the test is.
+   - When finished, the program displays the result and time taken.
+
+---
+
+## Example Math Modes
+
+- **Trig:** Sine, Cosine, and Logarithm calculations.
+- **Exp/Log:** Exponential and logarithmic math.
+- **Sort:** Bubble sort on a small array.
+- **Matrix:** 2x2 matrix multiplication.
+- **Prime:** Simple prime number test.
+- **Ackermann:** Recursive function for stack depth testing.
+- **Digital Root:** Integer digit reduction.
+
+---
+
+## Planned Enhancements
+
+- Logging results to a file.
+- Adjustable number of iterations.
+- Performance metrics (for Pico W/2W).
+
+---
+
+**Author:** INSCCOIN  
+**Version:** 4.0 
+**MMBasic Version** 6.00.02 RC26
+**Year:** 2025
+
+---
+
+*For more information, view the source code or contact the author.*
+
+---
