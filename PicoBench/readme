@@ -30,6 +30,7 @@
 2. **Main Menu Options:**  
    - **1. Run Benchmark:**  
      Select a math mode (1-25) and the benchmark will run, showing progress and timing.
+     Note: These tests take anywhere from 5 minutes to over 60 minutes to complete. Please plug your device in if you decided to run.
    - **2. Info: Math Modes:**  
      View detailed explanations of each math mode.
    - **3. Exit:**  
@@ -70,4 +71,14 @@
 
 *For more information, view the source code or contact the author.*
 
+---
+
+
+
+
+
+
+---
+** DISCLAIMER ** 
+- Battery life depends on tests you run. Some tests will cause the device to hang if you mess with the keyboard. Please be paitent & wait. 
 ---
