@@ -1,7 +1,6 @@
 ' INSCCOIN 2025
 ' PicoPong 1.0
-' NOTE line 32 needs to be changed on some consoles
-' NOTE from line $ = "" to line$ = ""
+
 
 OPTION EXPLICIT
 
@@ -14,7 +13,7 @@ DIM paddleY
 DIM score
 DIM key$
 DIM x, y
-DIM line$
+DIM l1$
 
 ' Initialize game
 ballX = WIDTH \ 2
@@ -30,19 +29,19 @@ DO
     ' Draw field
     CLS
     FOR y = 1 TO HEIGHT
-        line$ = ""
+        l1$ = ""
         FOR x = 1 TO WIDTH
             IF x = 1 AND y >= paddleY AND y < paddleY + PADDLE_SIZE THEN
-                line$ = line$ + "|"
+                l1$ = l1$ + "|"
             ELSEIF x = ballX AND y = ballY THEN
-                line$ = line$ + "O"
+                l1$ = l1$ + "O"
             ELSEIF x = WIDTH THEN
-                line$ = line$ + "|"
+                l1$ = l1$ + "|"
             ELSE
-                line$ = line$ + " "
+                l1$ = l1$ + " "
             END IF
         NEXT x
-        PRINT line$
+        PRINT l1$
     NEXT y
     PRINT "Score: "; score
     PRINT "W/S=Up/Down, Q=Quit"
