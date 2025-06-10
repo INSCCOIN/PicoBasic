@@ -5,7 +5,7 @@ Fun Ideas
 3. Tetris re-write (WIP) 2 weeks
 4. Memory game
 5. Sudoku puzzle solver
-6. Pong (Staging)
+6. Pong (DONE)
 7. Snake
 8. Maze gen & solver
 9. Space invaders (WIP)
