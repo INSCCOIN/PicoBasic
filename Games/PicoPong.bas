@@ -1,6 +1,7 @@
 ' INSCCOIN 2025
 ' PicoPong 1.0
-
+' NOTE line 32 needs to be changed on some consoles
+' NOTE from line $ = "" to line$ = ""
 
 OPTION EXPLICIT
 
