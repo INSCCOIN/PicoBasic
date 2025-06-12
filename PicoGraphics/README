@@ -1,0 +1,3 @@
+Note: For best peformance please use a cpu speed above 200mhz
+the pico may hang if its anything below 190. 
+even at 200+ mhz it takes about 30 - 60 seconds to render
