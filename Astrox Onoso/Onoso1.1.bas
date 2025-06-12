@@ -5,7 +5,7 @@
 ' This is still a work in progress, so expect reworks and updates THERE WILL BE BUGS.
 OPTION EXPLICIT
 
-CONST MAPSIZE = 10 ' Size of the galaxy map (10x10) Calc's display cant display anything bigger 
+CONST MAPSIZE = 12 ' Size of the galaxy map (10x10) Calc's display cant display anything bigger 
 
 DIM playerX, playerY, fuel, credits, hull, food
 DIM map$(MAPSIZE, MAPSIZE)
@@ -40,7 +40,7 @@ PRINT
 ' Initialize map with random events and types
 FOR y = 1 TO MAPSIZE 
     FOR x = 1 TO MAPSIZE
-        r = INT(RND * 20) 
+        r = INT(RND * 30) 
         SELECT CASE r
             CASE 0: map$(y, x) = "Planet:Terra"
             CASE 1: map$(y, x) = "Planet:Ice"
