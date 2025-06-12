@@ -5,7 +5,7 @@
 ' This is still a work in progress, so expect reworks and updates THERE WILL BE BUGS.
 OPTION EXPLICIT
 
-CONST MAPSIZE = 20 ' Size of the galaxy map (30x30)
+CONST MAPSIZE = 10 ' Size of the galaxy map (10x10) Calc's display cant display anything bigger 
 
 DIM playerX, playerY, fuel, credits, hull, food
 DIM map$(MAPSIZE, MAPSIZE)
