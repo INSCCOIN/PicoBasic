@@ -67,8 +67,8 @@ Manage your fuel, hull, food, credits, and medkits as you travel, trade, fight, 
 ## Credits
 
 INSCCOIN 2025 ©  
-Game by [Ian Simpson]  
-ASCII art and concept inspired by classic text adventures.
+Game by Ian C Simpson  
+ASCII art and concept created by Computee, inspired by classic text adventures.
 
 ---
 
