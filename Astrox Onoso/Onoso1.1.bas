@@ -30,7 +30,7 @@ PRINT "   | |_| || |\  || |_| | ___) | |_| |"
 PRINT "    \___/ |_| \_| \___/ |____/ \___/ "
 PRINT "              A S T R O X  "
 PRINT "            V E R S I O N 1.1  "
-PRINT "              INSCCOIN 2025  "
+PRINT "             INSCCOIN 2025  "
 PRINT
 PRINT "Commands: "
 PRINT "N S E W SCAN LAND"
