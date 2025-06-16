@@ -2,7 +2,7 @@
 A bunch of mmbasic applications for the PicoCalc. 
 
 # Currently waiting on a screen-replacement
-- Emailed the support line at clockwork & waiting for a response, until then there will be limited releases.
+- Emailed the support line at clockwork & waiting for a response, until then there will be limited releases. 6/16/25
 
 ## Requirements
 - PicoCalc or compatible device
