@@ -1,5 +1,5 @@
 # Currently waiting on a screen-replacement
-- Emailed the support line at clockwork & waiting for a response, until then there will be limited releases. 6/16/25
+- Alex has sent out 2 replacement screens as of 6/24/25
 
 
 
