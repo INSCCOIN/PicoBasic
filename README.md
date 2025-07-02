@@ -3,9 +3,29 @@
 
 
 
-# PicoBasic
-A bunch of mmbasic applications for the PicoCalc. 
+# Completed programs
 
+
+-	Lottery 
+-	PicoPong 
+-	Astrox Onoso v1.1
+-	Intrest Calculator 
+-	Loan Calculator
+-	Tax Calculator
+-	Wage Converter / Calculator
+-	PicoTBH v1.1
+-	PicoB2H v1.0
+-	PicoBench v2.5
+-	PicoBench v4.1
+-	PicoASM
+-	PicoByte
+-	PicoDev
+-	PicoEnc v1.1
+-	Rt
+-	Balls
+-	Pico3D
+-	PicoPlot3D
+-	PicoRTH v1.1
 
 ## Requirements
 - PicoCalc or compatible device
