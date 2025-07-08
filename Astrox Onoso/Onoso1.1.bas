@@ -1,7 +1,7 @@
 ' INSCCOIN 2025 ©
-' REQUIRES PICO 2 MINIMUM 
-' ASTROX ONOSO V1.1
+' ONOSO ASTROX 1.1
 ' Please report any found bugs or glitches, take a screenshot and send it to me.
+' Astralixi OS IS NOT AFFILIATED WITH ONOSO ASTROX IN ANY FORM
 ' This is still a work in progress, so expect reworks and updates THERE WILL BE BUGS.
 OPTION EXPLICIT
 
