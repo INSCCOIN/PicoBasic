@@ -1,4 +1,4 @@
-# ASTROX Onoso V1.1
+# Onoso Astrox 1.1
 
 **A Text-Based Open World Space Adventure for MMBasic (PicoMite)**
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-Astrox Onoso is a text-based, open world space exploration game.  
+Onoso Astrox is a text-based, open world space exploration game.  
 You command a starship, exploring a randomly generated galaxy filled with planets, stations, asteroids, and random events.  
 Manage your fuel, hull, food, credits, and medkits as you travel, trade, fight, and survive!
 
@@ -57,10 +57,8 @@ Manage your fuel, hull, food, credits, and medkits as you travel, trade, fight, 
 ---
 
 ## Requirements
-- Pico 1h 250mhz minimum
-- Pico 2 for optimal peformance
+- Pico 1 / Pico 2 for optimal peformance
 - MMBasic (PicoMite or compatible)
-- Serial or console access
 
 ---
 
@@ -69,6 +67,8 @@ Manage your fuel, hull, food, credits, and medkits as you travel, trade, fight, 
 INSCCOIN 2025 ©  
 Game by Ian C Simpson  
 ASCII art and concept created by Computee, inspired by classic text adventures.
+
+Onoso Astrox was created for the Astralixi OS, The OS is now closed source. I will not be releasing this game for they're OS. 
 
 ---
 
