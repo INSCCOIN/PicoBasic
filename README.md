@@ -3,7 +3,7 @@
 - Package is sitting at customs waiting clearance 7/5/25
 - Package has arrived at local distribution center, delivery estimated to be July 10th - 11th
 
-- Please see Being Created.md for more information on programs currently being worked on.
+- Please see Worklist.md for more information on programs currently being worked on.
 
 ## Requirements
 - PicoCalc or compatible device
