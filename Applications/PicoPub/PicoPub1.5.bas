@@ -1,4 +1,5 @@
-' PicoPub1.5
+' PicoPub 1.5
+' INSCCOIN 2025
 OPTION EXPLICIT
 
 dim string FILENAME$, line$
