@@ -3,30 +3,7 @@
 - Package is sitting at customs waiting clearance 7/5/25
 - Package has arrived at local distribution center, delivery estimated to be July 10th - 11th
 
-
-# Completed programs
-
-
--	Lottery 
--	PicoPong 
--	Astrox Onoso v1.1
--	Intrest Calculator 
--	Loan Calculator
--	Tax Calculator
--	Wage Converter / Calculator
--	PicoTBH v1.1
--	PicoB2H v1.0
--	PicoBench v2.5
--	PicoBench v4.1
--	PicoASM
--	PicoByte
--	PicoDev
--	PicoEnc v1.1
--	Rt
--	Balls
--	Pico3D
--	PicoPlot3D
--	PicoRTH v1.1
+- Please see Being Created.md for more information on programs currently being worked on.
 
 ## Requirements
 - PicoCalc or compatible device
