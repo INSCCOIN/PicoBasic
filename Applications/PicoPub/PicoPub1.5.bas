@@ -1,4 +1,4 @@
-' PicoPub1.5 - Streamed paging, no array
+' PicoPub1.5
 OPTION EXPLICIT
 
 dim string FILENAME$, line$
