@@ -1,5 +1,19 @@
 ## WIP ##
 
+# PicoBase
+  - 2 modular versions for this program, 1 requiring the 2w and one not. Both are defined in comments & the file name.
+  - PicoBase is a program designed to be used on the go, PicoBaseD is designed to be used on a desktop.
+  - PicoBase allows users to create, edit, delete and view .db & .csv files on the go. I'm planning for wireless database hosting for this version.
+  - PicoBaseD does the same thing as PicoBase but without the wireless abilities. 
+  - Estimated relase is end of summer 25
+
+
+# PicoPub
+  - PicoPub is a program that allows users to read .epub book formats.
+  - PicoPub is to be installed in its own directory, any books you place in the root directory of PicoPub will be accessable.
+  - Early development
+  - Estimated release is end of summer 25
+
 
 # PicoSynth 
   - Requires Aux / Speakers
