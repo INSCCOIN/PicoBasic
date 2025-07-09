@@ -9,8 +9,9 @@
 
 
 # PicoPub
-  - PicoPub is a program that allows users to read .epub book formats.
+  - PicoPub is a program that allows users to read .txt book formats.
   - PicoPub is to be installed in its own directory, any books you place in the root directory of PicoPub will be accessable.
+  - PicoPub will NOT work with .epub or .pdf files, you will have to convert them to a .txt file on your computer then import them to the PicoCalc.
   - Early development
   - Estimated release is end of summer 25
 
