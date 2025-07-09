@@ -1,7 +1,7 @@
 # Currently waiting on a screen-replacement
 - Alex has sent out 2 replacement screens as of 6/24/25
 - Package is sitting at customs waiting clearance 7/5/25
-
+- Package has arrived at local distribution center, delivery estimated to be July 10th - 11th
 
 
 # Completed programs
