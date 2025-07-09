@@ -1,0 +1,35 @@
+PicoPub - Advanced Text Reader for PicoMite
+============================================
+
+Features as of v1.21:
+
+- Select and open any .txt file from SD card
+- True word wrapping for text display
+- Page up/down navigation
+- Jump to any line
+- Remembers last reading position per file
+- Highlight any line on a page and save to HIGHLIGHT.TXT (with file, page, and line info)
+- View, jump to, and clear highlights (per book or all books)
+- Set bookmarks (separate from highlights) and save to BOOKMARKS.TXT
+- View bookmarks, jump to any bookmark, and clear all bookmarks
+- Jump to next highlight or next bookmark directly from the main reading screen (] and [ keys)
+- Help screen with all key commands
+
+Key Commands:
+-------------
+N : Next page
+P : Previous page
+J : Jump to line
+Up/Down : Move highlight
+S : Save highlighted line
+C : Clear highlights (book/all)
+B : Set bookmark at current line
+M : Show bookmarks and jump
+] : Next highlight
+[ : Next bookmark
+Q : Quit and save position
+H : Show help
+
+All features are designed for PicoMite MMBasic and tested on PicoMite/PicoCalc hardware.
+
+-- INSCCOIN 2025
