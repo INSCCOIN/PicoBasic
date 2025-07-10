@@ -46,7 +46,12 @@ Converter Utility:
 ------------------
 Version 1.0 was replaced
 
-Version 2.0:
-- Improved script structure and comments.
-- Added better word wrapping the lines are wrapped at the last space before 36 characters, or at 36 if no space is found.
-- Output is cleaner and more readable for PicoPub.
+Version 2.0 was replaced:
+
+Version 2.3:
+- Added -h option for optional hyphenation at wrap point if a word is too long to fit.
+- Added -ct option to convert tabs to spaces, and -rt to remove tabs completely.
+- Added -w N option to specify custom wrap width / characters per line.
+- All options can be combined for flexible output formatting.
+
+
