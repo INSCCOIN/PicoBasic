@@ -58,7 +58,7 @@ Manage your fuel, hull, food, credits, and medkits as you travel, trade, fight, 
 
 ## Requirements
 - Pico 1 / Pico 2 for optimal peformance
-- MMBasic (PicoMite or compatible)
+- MMBasic 6.0002 (PicoCalc or compatible)
 
 ---
 
