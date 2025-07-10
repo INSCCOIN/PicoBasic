@@ -34,3 +34,19 @@ Version 1.8:
 - Improved error handling for variable redeclaration and file not found.
 - Removed line numbers from display.
 - Cleaned up code and variable declarations.
+
+
+
+
+
+
+
+
+Converter Utility:
+------------------
+Version 1.0 was replaced
+
+Version 2.0:
+- Improved script structure and comments.
+- Added better word wrapping the lines are wrapped at the last space before 36 characters, or at 36 if no space is found.
+- Output is cleaner and more readable for PicoPub.
