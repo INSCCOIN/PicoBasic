@@ -21,3 +21,16 @@ Version 1.7:
 - Removed Q/J text from status bar for space.
 - Improved code structure and readability (grouped config, globals, and logic).
 - Minor bug fixes and further code cleanup.
+
+Version 1.7 R1
+- Added line numbers to far right of display
+- Cleaned up code
+
+Version 1.8:
+- Refactored for memory efficiency and user-friendliness.
+- Added compact status bar (page, line range, total lines).
+- Added file info popup (I key) with file size, lines, pages, and filename.
+- Added adjustable lines per page (L key cycles 10/15/20/25 lines).
+- Improved error handling for variable redeclaration and file not found.
+- Removed line numbers from display.
+- Cleaned up code and variable declarations.
