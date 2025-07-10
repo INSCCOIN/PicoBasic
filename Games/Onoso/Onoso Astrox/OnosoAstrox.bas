@@ -1,4 +1,4 @@
-' INSCCOIN 2025 ©
+' INSCCOIN 2025 
 ' ONOSO ASTROX 1.1
 ' Please report any found bugs or glitches, take a screenshot and send it to me.
 ' Astralixi OS IS NOT AFFILIATED WITH ONOSO ASTROX IN ANY FORM
