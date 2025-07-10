@@ -13,7 +13,7 @@
   - PicoPub is to be installed in its own directory, any books you place in the root directory of PicoPub will be accessable.
   - PicoPub will NOT work with .epub or .pdf files, you will have to convert them to a .txt file on your computer then import them to the PicoCalc.
   - Early development
-  - Estimated release is end of summer 25
+  - Released
 
 
 # PicoSynth 
@@ -41,5 +41,5 @@
   - 2nd in series from Onoso Astrox
   - Onoso Astrox was orignally created for the Astrox OS but since the project was made closed source its no longer associated with the OS.
   - Currently writing for the Pico 2, will make a relase for the Pico 1 when complete. Pico 1's limitations are ram related.
-  - Estimated release is end July 25
+  - Estimated release is end of summer 25
 
