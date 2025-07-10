@@ -16,8 +16,8 @@ Version 1.6:
 
 Version 1.7:
 - Added automatic wrapping of long lines to fit screen width.
-- Status bar now shows: current page, total pages, line range, total lines, filename, and battery percentage.
+- Status bar now shows: current page, total pages, line range, total lines and the current loaded files name.
 - Status bar made more compact and information-dense.
-- Removed Q/J text from status bar for minimalism.
+- Removed Q/J text from status bar for space.
 - Improved code structure and readability (grouped config, globals, and logic).
 - Minor bug fixes and further code cleanup.
