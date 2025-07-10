@@ -1,21 +1,12 @@
-' PicoPub1.7
+' PicoPub1.7 R1
 ' INSCCOIN 2025
-
-
-totalLines = 0
-do while not eof(#1)
-    line input #1, line$
-    totalLines = totalLines + 1
-loop
-close #1
-do
 
 OPTION EXPLICIT
 
 dim string FILENAME$, line$, displayLine$, k$
 dim integer pageStart, shownLines, totalLines, linesPerPage
 dim integer HRES, VRES, CHAR_W, CHAR_H, MAX_LINE_LEN
-dim integer firstLine, lastLine, currentPage, totalPages, batteryPercent
+dim integer firstLine, lastLine, currentPage, totalPages
 
 ' i hate the picos tiny ass screen
 HRES = MM.HRES : VRES = MM.VRES
@@ -73,10 +64,9 @@ do
     if lastLine > totalLines then lastLine = totalLines
     currentPage = int((pageStart / linesPerPage) + 1)
     totalPages = int(((totalLines - 1) / linesPerPage) + 1)
-    batteryPercent = mm.info(battery)
 
     ' status bar
-    print currentPage; "|"; totalPages; "|"; firstLine; "-"; lastLine; "|"; totalLines; "|"; FILENAME$; "|"; batteryPercent; "%";
+    print currentPage; "|"; totalPages; "|"; firstLine; "-"; lastLine; "|"; totalLines; "|"; FILENAME$
 
     ' usr input
     do: k$ = inkey$: loop until k$ = chr$(129) or k$ = chr$(130) or k$ = "Q" or k$ = "q" or k$ = "J" or k$ = "j"
