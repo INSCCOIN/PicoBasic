@@ -1,7 +1,7 @@
 # CalcBase Family: Database Management Systems for PicoCalc/MMBasic
 
 ## Overview
-The CalcBase series (versions 1.0, 2.0, and 3.0) are basic, menu-driven database management systems written in MMBasic for the PicoCalc. They are designed for small business/accounting tasks and demonstrate how to manage structured data in a resource constrained environment.
+The CalcBase series (versions 1.0, 2.0, 3.0 and 4.0) are basic, menu-driven database management systems written in MMBasic for the PicoCalc. They are designed for small business/accounting tasks and demonstrate how to manage structured data in a resource constrained environment.
 
 ---
 
