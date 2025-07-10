@@ -1,0 +1,23 @@
+PicoPub Changelog
+==================
+
+Version 1.5:
+- Initial release.
+- Simple text file pager: view a file page by page (25 lines per page).
+- Navigation: left/right arrow keys to move pages, Q to quit.
+- Displays current page and total pages.
+- Basic error handling for file not found.
+
+Version 1.6:
+- Added ability to jump to a specific page or line (press J, then P for page or L for line).
+- Displays current line range and total lines on each page.
+- Improved navigation prompt and status display.
+- Minor code cleanup and variable improvements.
+
+Version 1.7:
+- Added automatic wrapping of long lines to fit screen width.
+- Status bar now shows: current page, total pages, line range, total lines, filename, and battery percentage.
+- Status bar made more compact and information-dense.
+- Removed Q/J text from status bar for minimalism.
+- Improved code structure and readability (grouped config, globals, and logic).
+- Minor bug fixes and further code cleanup.
