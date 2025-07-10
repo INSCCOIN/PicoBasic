@@ -1,7 +1,4 @@
-# Currently waiting on a screen-replacement
-- Alex has sent out 2 replacement screens as of 6/24/25
-- Package is sitting at customs waiting clearance 7/5/25
-- Package has arrived at local distribution center, delivery estimated to be July 10th - 11th
+- I've removed a bunch of non-working apps, guess windows MMbasic isnt the same as Pico MMBasic. I'll continue trying to develop for the PicoCalc now that i've received my replacement screens.
 
 - Please see Worklist.md for more information on programs currently being worked on.
 
