@@ -8,11 +8,13 @@ Version 1.5:
 - Displays current page and total pages.
 - Basic error handling for file not found.
 
+
 Version 1.6:
 - Added ability to jump to a specific page or line (press J, then P for page or L for line).
 - Displays current line range and total lines on each page.
 - Improved navigation prompt and status display.
 - Minor code cleanup and variable improvements.
+
 
 Version 1.7:
 - Added automatic wrapping of long lines to fit screen width.
@@ -22,9 +24,11 @@ Version 1.7:
 - Improved code structure and readability (grouped config, globals, and logic).
 - Minor bug fixes and further code cleanup.
 
+
 Version 1.7 R1
 - Added line numbers to far right of display
 - Cleaned up code
+
 
 Version 1.8:
 - Refactored for memory efficiency and user-friendliness.
@@ -37,6 +41,12 @@ Version 1.8:
 
 
 
+Version 1.9:
+- Added color cycling for book text: press C to cycle through white, yellow, green, cyan, magenta, and red.
+- Improved status bar: changes with color cycle, and better layering.
+- Screenshot and tone feature (S key) improved.
+- Code cleanup: removed duplicate 1 variable declarations, fixed select/case/end select issues.
+- Minor bug fixes and usability improvements.
 
 
 
