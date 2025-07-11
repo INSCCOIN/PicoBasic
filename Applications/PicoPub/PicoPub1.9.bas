@@ -83,7 +83,7 @@ Do
     ' status bar. & text color
     Box 0, VRES-CHAR_H, HRES, CHAR_H, 100
     Color RGB(green)
-    print @(-2, VRES-CHAR_H-2) currentPage; "of"; totalPages; "|"; firstLine; "-"; lastLine; "|"; totalLines
+    print @(-2, VRES-CHAR_H-2) currentPage; " of"; totalPages; "|"; firstLine; "-"; lastLine; "|"; totalLines
     Color RGB(yellow)
 
     ' usr input
