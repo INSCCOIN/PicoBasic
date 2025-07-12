@@ -216,7 +216,7 @@ Do
                 Loop
                 Close #2
                 CLS
-                Print "--- FILE INFO ---"
+                Print "--- BOOK INFO ---"
                 Print "Name: ", FILENAME$
                 Print "Size: ", fsize; " bytes"
                 Print "Lines: ", totalLines
