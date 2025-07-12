@@ -50,6 +50,15 @@ Version 1.9:
 
 
 
+Version 2.0:
+- Used Madcock's custom pico 4x6 pixel font (DefineFont #10) and activated for all viewer text.
+- Theres now 36 lines instead of 25 per page.
+- Added direct RGB color input for text color (C key) (Replaced presets).
+- Removed lines per page changing on L key (Being reworked alongside having the ability of changing fonts).
+- Further code cleanup and minor bug fixes.
+- Added better word wrapping the lines are wrapped at the last space before 36 characters, or at 36 if no space is found.
+
+
 
 
 Converter Utility:
