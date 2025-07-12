@@ -1,4 +1,4 @@
-' PicoPub2.0
+' PicoPub2.0r1
 ' INSCCOIN 2025
 ' FOR PROPER TEXT DISPLAY, AT THE BEGINING OF ALL TEXT FILES PLEASE PLACE A BLANK LINE.
 
@@ -10,6 +10,7 @@ Dim integer HRES, VRES, CHAR_W, CHAR_H, MAX_LINE_LEN
 Dim integer firstLine, lastLine, currentPage, totalPages, wrapPos, displayLineNum, fsize
 Dim integer colorIndex
 Dim integer colorList(5)
+Dim integer r, g, b
 
 ' i hate the picos tiny ass screen
 HRES = MM.HRES : VRES = MM.VRES
@@ -160,7 +161,7 @@ Do
     Select Case k$
         Case "C", "c"
             ' prompt for color
-            Dim integer r, g, b
+           ' Dim integer r, g, b
             Print "Enter R (0-255): ";
             Input r
             Print "Enter G (0-255): ";
