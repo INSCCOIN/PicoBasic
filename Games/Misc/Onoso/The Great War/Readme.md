@@ -1,4 +1,4 @@
-# Onoso The Great War 3.0
+# Onoso The Great War 1.3
 
 **A Text-Based War Survival Adventure for the PicoCalc**
 
