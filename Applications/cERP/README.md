@@ -463,3 +463,5 @@ For technical support or feature requests:
 
 **cERP v2.0** - A comprehensive business management solution for retro computing environments.
 *Compatible with PicoCalc Pico 1/2 and MMBasic systems.*
+---
+INSCCOIN 2024 - 2025
