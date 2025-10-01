@@ -4,12 +4,10 @@
 
 PicoElite is a recreation of the classic 1984 Elite space trading and combat game for the PicoCalc platform. This game features a 3D wireframe engine, procedurally generated galaxies, trading, combat, and exploration in a vast universe.
 
-**Version:** 0.2 (Development Build)
-**Last Updated:** September 29, 2025
-**File Size:** 75KB
-**System Requirements:** 39KB of system RAM
-
-## Mathematical Underpinnings
+**Version:** 0.3 (Development Build)
+**Last Updated:** September 30, 2025
+**File Size:** 77KB
+**System Requirements:** 40KB of system RAM
 
 ### 3D Rendering System
 
@@ -54,6 +52,30 @@ The game's universe uses procedural generation to create 8 galaxies with 256 sta
    - Systems have tech levels, economy, and government types
    - These affect available trade goods and prices
 
+## Recent Improvements (Version 0.3)
+
+### Frame Buffer System
+
+- Implemented double buffering to reduce screen flicker
+- Added dedicated frame buffer management subroutines
+- Improved rendering performance and visual smoothness
+- Centralized screen clearing and buffer swapping operations
+
+### Font System Cleanup
+
+- Resolved font inconsistencies throughout the interface
+- Standardized text rendering to use consistent font sizing
+- Fixed docking alignment display font mismatch
+- Implemented centralized font management system
+- All TEXT statements now use proper font parameters
+
+### Code Organization
+
+- Added modular subroutines for frame buffer operations
+- Centralized font handling with SetDefaultFont subroutine
+- Improved main game loop structure
+- Better separation of rendering and game logic
+
 ## Controls
 
 ### Ship Navigation
@@ -91,10 +113,11 @@ The game's universe uses procedural generation to create 8 galaxies with 256 sta
 
 ### Known Bugs
 
-1. **Rendering Glitches:**
+1. **Rendering Issues:**
 
    - Objects may occasionally render incorrectly at certain angles
    - Line clipping algorithm sometimes fails at screen edges
+   - Screen flicker reduced with new frame buffer system
 2. **Navigation Issues:**
 
    - Occasional physics miscalculation during high-speed maneuvers
@@ -112,6 +135,7 @@ The game's universe uses procedural generation to create 8 galaxies with 256 sta
 
    - Text occasionally overflows screen boundaries
    - Menu selection may require multiple keypresses
+   - Font consistency issues have been resolved
 
 ## Development Notes
 
@@ -122,11 +146,13 @@ Combat systems are minimally implemented and trading balance requires adjustment
 ## System Architecture
 
 - **Main Loop:** Handles input, updates game state, renders environment
+- **Frame Buffer System:** Manages double buffering for smooth rendering
 - **3D Engine:** Manages transformations and projections
 - **Galaxy Generation:** Creates procedural star systems
 - **Navigation:** Controls ship movement and hyperspace
 - **Trade System:** Manages economy and transactions
 - **HUD:** Provides status information and targeting
+- **Font Management:** Centralized text rendering system
 
 ## Future Improvements
 
@@ -135,6 +161,7 @@ Combat systems are minimally implemented and trading balance requires adjustment
 - Improved enemy AI
 - Mission system
 - Expanded trade options
-- Performance optimizations
+- Further performance optimizations
 - Improved docking mechanics
 - Sound effects and "music"
+- Additional visual effects and animations
