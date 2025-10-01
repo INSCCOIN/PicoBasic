@@ -1,7 +1,7 @@
 ' INSCCOIN 2025
 ' PicoElite, An attempt at recreating the classic 1984 Elite game for the PicoCalc
-' Version 0.2
-' As of Sep, 29th, 2025 theres tons of bugs and shitty programing (I've slept for about 5 hours in the last week), Claud Sonnet 3.7 did most of the comments, Claud also fixed the render problem. About 90% of this is done by me, the rest is Claud. 
+' Version 0.3
+' As of Sep, 30th, 2025 theres tons of bugs and shitty programing (I've slept for about 5 hours in the last week), Claud Sonnet 3.7 did most of the comments, Claud also fixed the render problem. About 90% of this is done by me, the rest is Claud. 
 
 ' Set array base to 0
 OPTION BASE 0
@@ -50,6 +50,12 @@ CONST NUM_BG_STARS = 20
 DIM bgStarX(NUM_BG_STARS-1)
 DIM bgStarY(NUM_BG_STARS-1)
 DIM bgStarZ(NUM_BG_STARS-1)
+
+' Frame buffer system (software-based rendering optimization)
+' This provides structure for future double buffering implementation
+currentBuffer = 0    ' Current drawing buffer state (0 or 1)
+CONST BUFFER_SCREEN = 0
+CONST BUFFER_BACK = 1
 
 ' Initialize background stars
 FOR i = 0 TO NUM_BG_STARS-1
@@ -337,6 +343,9 @@ RETURN
 
 
 ProgramStart:
+' Initialize frame buffer system for smooth rendering
+GOSUB InitFrameBuffer
+
 CLS
 GOSUB DrawShip
 GOSUB DrawHUD
@@ -370,17 +379,17 @@ DO
             FONT #7
             
             IF targetGalaxy <> currentGalaxy THEN
-                TEXT CENTERX, 50, "INTERGALACTIC HYPERSPACE JUMP COMPLETE", "CT", 1
-                TEXT CENTERX, 80, "Arrived in " + galaxyNames$(targetGalaxy), "CT", 1
-                TEXT CENTERX, 100, "System: " + sysName$(0), "CT", 1
-                TEXT CENTERX, 150, "Warning: Fuel depleted", "CT", 1
+                TEXT CENTERX, 50, "INTERGALACTIC HYPERSPACE JUMP COMPLETE", "CT", 7
+                TEXT CENTERX, 80, "Arrived in " + galaxyNames$(targetGalaxy), "CT", 7
+                TEXT CENTERX, 100, "System: " + sysName$(0), "CT", 7
+                TEXT CENTERX, 150, "Warning: Fuel depleted", "CT", 7
             ELSE
-                TEXT CENTERX, 80, "HYPERSPACE COMPLETE", "CT", 1
-                TEXT CENTERX, 110, "Arrived at " + sysName$(hyperspaceTarget), "CT", 1
-                TEXT CENTERX, 130, "Fuel remaining: " + STR$(INT(fuel * 10) / 10) + " LY", "CT", 1
+                TEXT CENTERX, 80, "HYPERSPACE COMPLETE", "CT", 7
+                TEXT CENTERX, 110, "Arrived at " + sysName$(hyperspaceTarget), "CT", 7
+                TEXT CENTERX, 130, "Fuel remaining: " + STR$(INT(fuel * 10) / 10) + " LY", "CT", 7
             ENDIF
             
-            TEXT CENTERX, SHEIGHT-40, "Press any key to continue", "CT", 1
+            TEXT CENTERX, SHEIGHT-40, "Press any key to continue", "CT", 7
             
             ' Wait for keypress
             DO
@@ -474,14 +483,14 @@ DO
                     ' Draw intergalactic jump confirmation
                     CLS
                     FONT #7
-                    TEXT CENTERX, 50, "INTERGALACTIC HYPERSPACE", "CT", 1
-                    TEXT CENTERX, 80, "Destination: GALAXY " + STR$(targetGalaxy + 1), "CT", 1
-                    TEXT CENTERX, 100, galaxyNames$(targetGalaxy), "CT", 1
+                    TEXT CENTERX, 50, "INTERGALACTIC HYPERSPACE", "CT", 7
+                    TEXT CENTERX, 80, "Destination: GALAXY " + STR$(targetGalaxy + 1), "CT", 7
+                    TEXT CENTERX, 100, galaxyNames$(targetGalaxy), "CT", 7
                     
                     ' In original Elite, this required a special item
-                    TEXT CENTERX, 130, "WARNING: Intergalactic jump will use", "CT", 1
-                    TEXT CENTERX, 150, "ALL remaining hyperspace fuel", "CT", 1
-                    TEXT CENTERX, 180, "Proceed with jump? (Y/N)", "CT", 1
+                    TEXT CENTERX, 130, "WARNING: Intergalactic jump will use", "CT", 7
+                    TEXT CENTERX, 150, "ALL remaining hyperspace fuel", "CT", 7
+                    TEXT CENTERX, 180, "Proceed with jump? (Y/N)", "CT", 7
                     
                     ' Wait for confirmation
                     jumpConfirmed = 0
@@ -517,12 +526,12 @@ DO
                         ' Display jump confirmation
                         CLS
                         FONT #7
-                        TEXT CENTERX, 60, "HYPERSPACE JUMP", "CT", 1
-                        TEXT CENTERX, 90, "Target: " + sysName$(hyperspaceTarget), "CT", 1
-                        TEXT CENTERX, 110, "Distance: " + STR$(INT(jumpDist * 10) / 10) + " LY", "CT", 1
-                        TEXT CENTERX, 130, "Fuel required: " + STR$(INT(jumpDist * 10) / 10) + " LY", "CT", 1
-                        TEXT CENTERX, 150, "Fuel remaining after jump: " + STR$(INT((fuel - jumpDist) * 10) / 10) + " LY", "CT", 1
-                        TEXT CENTERX, 180, "Engage hyperspace drive? (Y/N)", "CT", 1
+                        TEXT CENTERX, 60, "HYPERSPACE JUMP", "CT", 7
+                        TEXT CENTERX, 90, "Target: " + sysName$(hyperspaceTarget), "CT", 7
+                        TEXT CENTERX, 110, "Distance: " + STR$(INT(jumpDist * 10) / 10) + " LY", "CT", 7
+                        TEXT CENTERX, 130, "Fuel required: " + STR$(INT(jumpDist * 10) / 10) + " LY", "CT", 7
+                        TEXT CENTERX, 150, "Fuel remaining after jump: " + STR$(INT((fuel - jumpDist) * 10) / 10) + " LY", "CT", 7
+                        TEXT CENTERX, 180, "Engage hyperspace drive? (Y/N)", "CT", 7
                         
                         ' Wait for confirmation
                         jumpConfirmed = 0
@@ -548,7 +557,7 @@ DO
                     ELSE
                         ' Not enough fuel
                         FONT #7
-                        TEXT CENTERX, CENTERY, "INSUFFICIENT FUEL FOR JUMP", "CT", 1
+                        TEXT CENTERX, CENTERY, "INSUFFICIENT FUEL FOR JUMP", "CT", 7
                         PAUSE 1000
                         needsUpdate = 1
                     ENDIF
@@ -574,8 +583,8 @@ MainLoopContinue:
                     IF starProximity < 150 THEN
                         ' Dangerously close - damage!
                         FONT #7
-                        TEXT CENTERX, CENTERY - 20, "WARNING: TEMPERATURE CRITICAL!", "CT", 1
-                        TEXT CENTERX, CENTERY + 10, "MOVE AWAY FROM STAR NOW", "CT", 1
+                        TEXT CENTERX, CENTERY - 20, "WARNING: TEMPERATURE CRITICAL!", "CT", 7
+                        TEXT CENTERX, CENTERY + 10, "MOVE AWAY FROM STAR NOW", "CT", 7
                         
                         ' Visual effect for critical temperature
                         FOR i = 1 TO 5
@@ -876,20 +885,22 @@ MainLoopContinue:
     
     ' Only redraw if player made a move
     IF needsUpdate = 1 THEN
-        ' No need for CLS here as each drawing routine now handles its own screen clearing
+        ' Use frame buffer for smooth rendering
+        GOSUB ClearFrameBuffer
         GOSUB DrawEnvironment
         GOSUB DrawShip
         GOSUB DrawHUD
+        GOSUB SwapFrameBuffers
         
-        ' Brief pause to avoid flickering
+        ' Brief pause to avoid excessive CPU usage
         PAUSE 5
     ENDIF
 LOOP
 
 ' Subroutine for drawing the environment
 DrawEnvironment:
-    ' Clear screen before drawing new environment
-    CLS
+    ' Set default font for consistent rendering
+    GOSUB SetDefaultFont
     
     ' Check if we're in hyperspace
     IF inHyperspace = 1 THEN
@@ -1235,8 +1246,8 @@ DrawEnvironment:
                 
                 ' Show docking alignment indicator if close to station
                 IF stationDistance < 100 THEN
-                    FONT #7
-                    TEXT 10, 190, "Docking Alignment: ", "LT", 1
+                    GOSUB SetDefaultFont
+                    TEXT 10, 190, "Docking Alignment: ", "LT", 7
                     
                     ' Draw alignment bars
                     barLength = 100
@@ -1262,11 +1273,11 @@ DrawEnvironment:
                 
                 ' Display docking computer status if equipped
                 IF (equipment AND EQUIP_DOCKING_COMPUTER) <> 0 THEN
-                    FONT #7
+                    GOSUB SetDefaultFont
                     IF dockingComputer = 1 THEN
-                        TEXT 10, 210, "DOCKING COMPUTER ACTIVE", "LT", 1
+                        TEXT 10, 210, "DOCKING COMPUTER ACTIVE", "LT", 7
                     ELSE
-                        TEXT 10, 210, "Docking Computer Ready (D to activate)", "LT", 1
+                        TEXT 10, 210, "Docking Computer Ready (D to activate)", "LT", 7
                     ENDIF
                 ENDIF
                 
@@ -1480,14 +1491,14 @@ RETURN
 
 DrawHUD:
     IF isDocked = 0 THEN  ' Only show flight HUD when not docked
-        ' Set font for 51 chars wide, 45 chars height
-        FONT #7
+        ' Set font consistently throughout HUD
+        GOSUB SetDefaultFont
         
         ' Left side HUD - Navigation info
-        TEXT 5, 10, "NAVIGATION", "LT", 1
-        TEXT 5, 22, "Speed: " + STR$(INT(shipSpeed * 100) / 100), "LT", 1
-        TEXT 5, 34, "Galaxy: " + STR$(currentGalaxy+1), "LT", 1
-        TEXT 5, 46, "System: " + LEFT$(sysName$(0), 15), "LT", 1
+        TEXT 5, 10, "NAVIGATION", "LT", 7
+        TEXT 5, 22, "Speed: " + STR$(INT(shipSpeed * 100) / 100), "LT", 7
+        TEXT 5, 34, "Galaxy: " + STR$(currentGalaxy+1), "LT", 7
+        TEXT 5, 46, "System: " + LEFT$(sysName$(0), 15), "LT", 7
         
         ' Show current mode with clearer text
         modeText$ = "Deep Space"
@@ -1495,36 +1506,36 @@ DrawHUD:
         IF currentMode = MODE_NEAR_PLANET THEN modeText$ = "Near Planet"
         IF currentMode = MODE_NEAR_STATION THEN modeText$ = "Near Station"
         
-        TEXT 5, 58, "Location: " + modeText$, "LT", 1
-        TEXT 5, 70, "Fuel: " + STR$(INT(fuel * 10) / 10) + " LY", "LT", 1
+        TEXT 5, 58, "Location: " + modeText$, "LT", 7
+        TEXT 5, 70, "Fuel: " + STR$(INT(fuel * 10) / 10) + " LY", "LT", 7
         
         ' Credits display
-        TEXT 5, 82, "Credits: " + STR$(credits), "LT", 1
+        TEXT 5, 82, "Credits: " + STR$(credits), "LT", 7
         
         ' System info - right side of screen
-        TEXT WIDTH-5, 10, "SYSTEM INFORMATION", "RT", 1
+        TEXT WIDTH-5, 10, "SYSTEM INFORMATION", "RT", 7
         govtText$ = LEFT$(governmentTypes$(sysGovt(0)), 14)
-        TEXT WIDTH-5, 22, "Government: " + govtText$, "RT", 1
+        TEXT WIDTH-5, 22, "Government: " + govtText$, "RT", 7
         econText$ = LEFT$(economyTypes$(sysEcon(0)), 14)
-        TEXT WIDTH-5, 34, "Economy: " + econText$, "RT", 1
-        TEXT WIDTH-5, 46, "Tech Level: " + STR$(sysTech(0)), "RT", 1
+        TEXT WIDTH-5, 34, "Economy: " + econText$, "RT", 7
+        TEXT WIDTH-5, 46, "Tech Level: " + STR$(sysTech(0)), "RT", 7
         
         ' Show active equipment with clear status indicators
-        TEXT WIDTH-5, 58, "EQUIPMENT", "RT", 1
+        TEXT WIDTH-5, 58, "EQUIPMENT", "RT", 7
         equipLine = 70
         
         IF (equipment AND EQUIP_FUEL_SCOOP) <> 0 THEN
             ' Show active status if near star
             IF currentMode = MODE_NEAR_STAR AND starDist < 400 THEN
                 IF starDist < 150 THEN
-                    TEXT WIDTH-5, equipLine, "Fuel Scoop [DANGER ZONE] (S:activate)", "RT", 1
+                    TEXT WIDTH-5, equipLine, "Fuel Scoop [DANGER ZONE] (S:activate)", "RT", 7
                 ELSEIF starDist < 250 THEN
-                    TEXT WIDTH-5, equipLine, "Fuel Scoop [OPTIMAL RANGE] (S:activate)", "RT", 1
+                    TEXT WIDTH-5, equipLine, "Fuel Scoop [OPTIMAL RANGE] (S:activate)", "RT", 7
                 ELSE
-                    TEXT WIDTH-5, equipLine, "Fuel Scoop [MARGINAL RANGE] (S:activate)", "RT", 1
+                    TEXT WIDTH-5, equipLine, "Fuel Scoop [MARGINAL RANGE] (S:activate)", "RT", 7
                 ENDIF
             ELSE
-                TEXT WIDTH-5, equipLine, "Fuel Scoop (Press S to activate)", "RT", 1
+                TEXT WIDTH-5, equipLine, "Fuel Scoop (Press S to activate)", "RT", 7
             ENDIF
             equipLine = equipLine + 12
         ENDIF
@@ -1532,36 +1543,36 @@ DrawHUD:
         IF (equipment AND EQUIP_DOCKING_COMPUTER) <> 0 THEN
             ' Show status of docking computer
             IF dockingComputer = 1 THEN
-                TEXT WIDTH-5, equipLine, "Docking Computer [ACTIVE]", "RT", 1
+                TEXT WIDTH-5, equipLine, "Docking Computer [ACTIVE]", "RT", 7
             ELSEIF currentMode = MODE_NEAR_STATION AND stationDist < 100 THEN
-                TEXT WIDTH-5, equipLine, "Docking Computer [READY] (D:activate)", "RT", 1
+                TEXT WIDTH-5, equipLine, "Docking Computer [READY] (D:activate)", "RT", 7
             ELSE
-                TEXT WIDTH-5, equipLine, "Docking Computer (Press D to activate)", "RT", 1
+                TEXT WIDTH-5, equipLine, "Docking Computer (Press D to activate)", "RT", 7
             ENDIF
             equipLine = equipLine + 12
         ENDIF
         
         IF (equipment AND EQUIP_CARGO_SCOOP) <> 0 THEN
-            TEXT WIDTH-5, equipLine, "Cargo Scoop Installed", "RT", 1
+            TEXT WIDTH-5, equipLine, "Cargo Scoop Installed", "RT", 7
             equipLine = equipLine + 12
         ENDIF
         
         ' Show proximity indicators when near station with improved formatting
         IF currentMode = MODE_NEAR_STATION THEN
-            TEXT 5, SHEIGHT - 40, "Distance to Station: " + STR$(INT(stationDist)) + " units", "LT", 1
+            TEXT 5, SHEIGHT - 40, "Distance to Station: " + STR$(INT(stationDist)) + " units", "LT", 7
             
         ELSE
             ' Show control reminder at bottom of screen
-            TEXT 5, SHEIGHT - 20, "Press ? for controls", "LT", 1
+            TEXT 5, SHEIGHT - 20, "Press ? for controls", "LT", 7
         ENDIF
             IF stationDist < 50 THEN
-                TEXT 5, SHEIGHT - 30, "DOCK ZONE-Align w/entrance", "LT", 1
+                TEXT 5, SHEIGHT - 30, "DOCK ZONE-Align w/entrance", "LT", 7
             ENDIF
         ENDIF
         
         ' Show target system if one is selected
         IF hyperspaceTarget >= 0 THEN
-            TEXT 10, 110, "Target: " + sysName$(hyperspaceTarget), "LT", 1
+            TEXT 10, 110, "Target: " + sysName$(hyperspaceTarget), "LT", 7
             
             ' Calculate distance to target
             dx = sysX(hyperspaceTarget) - sysX(0)
@@ -1569,12 +1580,12 @@ DrawHUD:
             dz = sysZ(hyperspaceTarget) - sysZ(0)
             jumpDist = SQR(dx*dx + dy*dy + dz*dz) / mapScale
             
-            TEXT 10, 130, "Jump dist: " + STR$(INT(jumpDist * 10) / 10) + " LY", "LT", 1
+            TEXT 10, 130, "Jump dist: " + STR$(INT(jumpDist * 10) / 10) + " LY", "LT", 7
         ENDIF
         
         ' Command reference
-        TEXT 10, SHEIGHT - 40, "Arrows: Move   R: Rotate   H: Map", "LT", 1
-        TEXT 10, SHEIGHT - 20, "J: Jump   S: Fuel Scoop   D: Dock", "LT", 1
+        TEXT 10, SHEIGHT - 40, "Arrows: Move   R: Rotate   H: Map", "LT", 7
+        TEXT 10, SHEIGHT - 20, "J: Jump   S: Fuel Scoop   D: Dock", "LT", 7
     ENDIF
 RETURN
 
@@ -1582,30 +1593,63 @@ DrawGalacticMap:
     ' Clear screen before drawing galactic map
     CLS
     
-    ' Set font for 51 chars wide, 45 chars height
-    FONT #7
+    ' Set font consistently
+    GOSUB SetDefaultFont
+    
+    ' Draw decorative border around the entire screen
+    BOX 2, 2, SWIDTH-4, SHEIGHT-4, 1, 0
+    BOX 4, 4, SWIDTH-8, SHEIGHT-8, 1, 0
     
     ' Show Elite-style galaxy header with proper name
-    TEXT CENTERX, 10, galaxyNames$(currentGalaxy), "CT", 1
-    TEXT 10, 30, "Use 0-9 to select system, G to change galaxy", "LT", 1
-    TEXT 10, 50, "Fuel range: " + STR$(INT(fuel * 10) / 10) + " Light Years", "LT", 1
+    TEXT CENTERX, 8, "GALACTIC HYPERSPACE MAP", "CT", 7
+    TEXT CENTERX, 20, galaxyNames$(currentGalaxy) + " GALAXY", "CT", 7
     
-    ' Draw 2D map of systems (top-down view)
-    mapScale = 1
-    mapCenterX = SWIDTH / 2
-    mapCenterY = SHEIGHT / 2
+    ' Draw header separator line
+    LINE 10, 32, SWIDTH-10, 32, 1
+    
+    ' Information panel
+    TEXT 10, 40, "Fuel Range: " + STR$(INT(fuel * 10) / 10) + " LY", "LT", 7
+    TEXT 10, 52, "Systems: 0-9 to select, G for galaxy menu", "LT", 7
+    
+    ' Define map area with border
+    mapLeft = 10
+    mapTop = 70
+    mapWidth = 200
+    mapHeight = 120
+    mapCenterX = mapLeft + mapWidth / 2
+    mapCenterY = mapTop + mapHeight / 2
+    mapScale = 0.8
+    
+    ' Draw map border
+    BOX mapLeft, mapTop, mapWidth, mapHeight, 1, 0
+    
+    ' Draw coordinate grid lines for reference
+    FOR i = 1 TO 3
+        gridX = mapLeft + (i * mapWidth / 4)
+        LINE gridX, mapTop, gridX, mapTop + mapHeight, 1
+    NEXT i
+    FOR i = 1 TO 2
+        gridY = mapTop + (i * mapHeight / 3)
+        LINE mapLeft, gridY, mapLeft + mapWidth, gridY, 1
+    NEXT i
     
     ' Draw fuel range circle
-    CIRCLE mapCenterX, mapCenterY, fuel * mapScale, 1
+    CIRCLE mapCenterX, mapCenterY, fuel * mapScale * 15, 1
     
     ' Draw all visible systems
     FOR i = 0 TO CURRENT_VIEW_SYSTEMS-1
-        mapX = mapCenterX + sysX(i)
-        mapY = mapCenterY + sysZ(i)  ' Use Z as Y in top-down view
+        ' Scale system coordinates to fit in map area
+        mapX = mapCenterX + (sysX(i) * mapScale)
+        mapY = mapCenterY + (sysZ(i) * mapScale)  ' Use Z as Y in top-down view
+        
+        ' Ensure systems stay within map bounds
+        IF mapX < mapLeft + 5 THEN mapX = mapLeft + 5
+        IF mapX > mapLeft + mapWidth - 5 THEN mapX = mapLeft + mapWidth - 5
+        IF mapY < mapTop + 5 THEN mapY = mapTop + 5
+        IF mapY > mapTop + mapHeight - 5 THEN mapY = mapTop + mapHeight - 5
         
         ' Calculate distance from current position
         IF i = 0 THEN
-            ' Current system is always at index 0
             dist = 0
         ELSE
             dx = sysX(i) - sysX(0)
@@ -1614,44 +1658,98 @@ DrawGalacticMap:
             dist = SQR(dx*dx + dy*dy + dz*dz)
         ENDIF
         
-        ' Mark current system with a larger dot
+        ' Draw system markers with different styles
         IF i = 0 THEN
-            CIRCLE mapX, mapY, 5, 1, 1
+            ' Current system - large filled circle with cross
+            CIRCLE mapX, mapY, 4, 1, 1
+            LINE mapX-6, mapY, mapX+6, mapY, 1
+            LINE mapX, mapY-6, mapX, mapY+6, 1
         ELSE
-            ' Mark systems based on whether they're in jump range
+            ' Other systems based on jump range
             IF dist <= fuel THEN
-                CIRCLE mapX, mapY, 3, 1
+                ' In range - filled circle
+                CIRCLE mapX, mapY, 3, 1, 1
             ELSE
-                ' Out of range
-                CIRCLE mapX, mapY, 2, 1
+                ' Out of range - hollow circle
+                CIRCLE mapX, mapY, 2, 1, 0
             ENDIF
         ENDIF
         
-        ' Only show system numbers for those in jump range
+        ' Show system numbers for accessible systems
         IF dist <= fuel OR i = 0 THEN
-            ' Convert to display index (0-15)
             displayIdx = i
             IF displayIdx >= 10 THEN
-                ' Use letters A-F for systems 10-15
+                displayChar$ = CHR$(55 + displayIdx)  ' A-F for 10-15
+            ELSE
+                displayChar$ = STR$(displayIdx)
+            ENDIF
+            
+            ' Position labels to avoid overlap
+            labelX = mapX + 6
+            labelY = mapY - 2
+            TEXT labelX, labelY, displayChar$, "LT", 7
+            
+        ENDIF
+    NEXT i
+    
+    ' System information panel on the right
+    infoLeft = 220
+    infoWidth = 95
+    BOX infoLeft, 70, infoWidth, 120, 1, 0
+    TEXT infoLeft + 2, 75, "SYSTEM INFORMATION", "LT", 7
+    LINE infoLeft + 2, 85, infoLeft + infoWidth - 2, 85, 1
+    
+    ' Show detailed info for accessible systems
+    infoY = 90
+    shownSystems = 0
+    FOR i = 0 TO CURRENT_VIEW_SYSTEMS-1
+        IF i = 0 THEN
+            dist = 0
+        ELSE
+            dx = sysX(i) - sysX(0)
+            dy = sysY(i) - sysY(0) 
+            dz = sysZ(i) - sysZ(0)
+            dist = SQR(dx*dx + dy*dy + dz*dz)
+        ENDIF
+        
+        IF (dist <= fuel OR i = 0) AND shownSystems < 6 THEN
+            displayIdx = i
+            IF displayIdx >= 10 THEN
                 displayChar$ = CHR$(55 + displayIdx)
             ELSE
                 displayChar$ = STR$(displayIdx)
             ENDIF
             
-            ' Label systems with numbers/letters
-            TEXT mapX + 8, mapY, displayChar$ + ":" + sysName$(i), "LT", 1
+            ' System name and key
+            TEXT infoLeft + 2, infoY, displayChar$ + ": " + LEFT$(sysName$(i), 12), "LT", 7
+            infoY = infoY + 10
             
-            ' Show system info at bottom for first few systems
-            IF i < 4 THEN
-                yPos = 150 + i * 20
-                TEXT 10, yPos, displayChar$ + ": " + sysName$(i) + " - " + governmentTypes$(sysGovt(i)) + ", " + economyTypes$(sysEcon(i)), "LT", 1
-            ENDIF
+            ' Government and economy (abbreviated)
+            govText$ = LEFT$(governmentTypes$(sysGovt(i)), 8)
+            econText$ = LEFT$(economyTypes$(sysEcon(i)), 8) 
+            TEXT infoLeft + 4, infoY, govText$ + ", " + econText$, "LT", 7
+            infoY = infoY + 12
+            
+            shownSystems = shownSystems + 1
         ENDIF
     NEXT i
     
-    ' Show navigation help
-    TEXT 10, SHEIGHT - 40, "Press G to select galaxy", "LT", 1
-    TEXT 10, SHEIGHT - 20, "Press any other key to return", "LT", 1
+    ' Legend box
+    legendY = 200
+    BOX 10, legendY, 300, 35, 1, 0
+    TEXT 12, legendY + 5, "LEGEND:", "LT", 7
+    TEXT 12, legendY + 15, "Current System   In Range   Out of Range", "LT", 7
+    
+    ' Legend symbols
+    CIRCLE 88, legendY + 20, 3, 1, 1
+    LINE 82, legendY + 20, 94, legendY + 20, 1
+    LINE 88, legendY + 14, 88, legendY + 26, 1
+    
+    CIRCLE 150, legendY + 20, 2, 1, 1
+    CIRCLE 210, legendY + 20, 2, 1, 0
+    
+    ' Navigation help
+    TEXT CENTERX, SHEIGHT - 15, "G: Galaxy Menu  |  0-9: Select System  |  Any Key: Return", "CT", 7
 RETURN
 
 ' Galaxy selection screen subroutine
@@ -1659,55 +1757,52 @@ DrawGalaxySelector:
     ' Clear screen before drawing galaxy selector
     CLS
     
-    ' Set font for 51 chars wide, 45 chars height
-    FONT #7
-    TEXT CENTERX, 20, "GALAXY SELECTION", "CT", 1
+    ' Set font consistently
+    GOSUB SetDefaultFont
     
-    ' Display all galaxies in a grid
-    TEXT 10, 50, "Press 1-8 to view a galaxy:", "LT", 1
+    ' Draw decorative border
+    BOX 2, 2, SWIDTH-4, SHEIGHT-4, 1, 0
+    BOX 4, 4, SWIDTH-8, SHEIGHT-8, 1, 0
     
-    col1X = 40
-    col2X = 180
+    ' Header
+    TEXT CENTERX, 10, "INTERGALACTIC HYPERSPACE", "CT", 7
+    TEXT CENTERX, 22, "GALAXY SELECTION MATRIX", "CT", 7
+    LINE 10, 35, SWIDTH-10, 35, 1
     
-    TEXT col1X, 70, "1: " + galaxyNames$(0), "LT", 1
-    TEXT col2X, 70, "2: " + galaxyNames$(1), "LT", 1
-    TEXT col1X, 90, "3: " + galaxyNames$(2), "LT", 1
-    TEXT col2X, 90, "4: " + galaxyNames$(3), "LT", 1
-    TEXT col1X, 110, "5: " + galaxyNames$(4), "LT", 1
-    TEXT col2X, 110, "6: " + galaxyNames$(5), "LT", 1
-    TEXT col1X, 130, "7: " + galaxyNames$(6), "LT", 1
-    TEXT col2X, 130, "8: " + galaxyNames$(7), "LT", 1
+    ' Instructions
+    TEXT CENTERX, 45, "Select destination galaxy (1-8)", "CT", 7
     
-    ' Mark current galaxy
-    TEXT CENTERX, 160, "Current galaxy: " + galaxyNames$(currentGalaxy), "CT", 1
+    ' Galaxy list in organized columns
+    col1X = 30
+    col2X = 170
     
-    ' Draw some dots representing the galaxies
+    ' Draw galaxy selection boxes
     FOR i = 0 TO 7
-        row = INT(i / 2)
-        col = i MOD 2
-        
-        x = 50 + col * 150
-        y = 80 + row * 20
-        
-        ' Draw galaxy icon
-        FOR j = 1 TO 8
-            dotX = x + RND * 25 - 12
-            dotY = y - 5 + RND * 15 - 7
-            PIXEL dotX, dotY, 1
-        NEXT j
+        row = i MOD 4
+        col = INT(i / 4)
+        boxX = col1X + col * 140
+        boxY = 65 + row * 25
         
         ' Highlight current galaxy
         IF i = currentGalaxy THEN
-            CIRCLE x, y, 15, 1
+            BOX boxX - 2, boxY - 2, 130, 20, 1, 1
+            TEXT boxX, boxY + 5, STR$(i+1) + ": " + galaxyNames$(i) + " [CURRENT]", "LT", 1
+        ELSE
+            BOX boxX - 2, boxY - 2, 130, 20, 1, 0
+            TEXT boxX, boxY + 5, STR$(i+1) + ": " + galaxyNames$(i), "LT", 7
         ENDIF
     NEXT i
     
-    ' Information about intergalactic jumps
-    TEXT CENTERX, 190, "Warning: Intergalactic jumps require", "CT", 1
-    TEXT CENTERX, 205, "special hyperspace equipment", "CT", 1
+    ' Current location info
+    BOX 20, 175, 280, 25, 1, 0
+    TEXT CENTERX, 182, "Current Location: " + galaxyNames$(currentGalaxy) + " Galaxy", "CT", 7
     
-    ' Current galaxy requires no special equipment
-    TEXT CENTERX, 230, "Press any key to return", "CT", 1
+    ' Warning panel about intergalactic jumps
+    BOX 20, 210, 280, 25, 1, 0
+    TEXT CENTERX, 217, "WARNING: Intergalactic hyperspace jumps consume ALL fuel", "CT", 7
+    
+    ' Controls help
+    TEXT CENTERX, SHEIGHT - 10, "Press 1-8 to select galaxy, any other key to return", "CT", 7
     
     ' Wait for key press
     DO
@@ -1751,7 +1846,6 @@ DrawGalaxySelector:
             ENDIF
         ENDIF
         
-        ' Any other key returns to map
         IF k$ <> "" THEN
             CLS
             GOSUB DrawGalacticMap
@@ -1761,11 +1855,11 @@ DrawGalaxySelector:
 RETURN
 
 WaitForKeypress:
-    ' Wait for key and process it
+
     DO
         key$ = INKEY$
         
-        ' Check for number keys and letters A-F to select system
+
         valid = 0
         targetIdx = -1
         
@@ -1784,7 +1878,6 @@ WaitForKeypress:
             hyperspaceTarget = targetIdx
             targetGalaxy = currentGalaxy  ' Same galaxy
             
-            ' Calculate distance to see if it's in range
             IF targetIdx = 0 THEN
                 jumpDist = 0  ' Current system
             ELSE
@@ -1794,7 +1887,6 @@ WaitForKeypress:
                 jumpDist = SQR(dx*dx + dy*dy + dz*dz) / mapScale
             ENDIF
             
-            ' Display selection info
             CLS
             FONT #7
             
@@ -1807,13 +1899,10 @@ WaitForKeypress:
                 TEXT 10, 180, "Distance: " + STR$(INT(jumpDist * 10) / 10) + " LY", "LT", 1
                 TEXT 10, 200, "Press J to initiate jump", "LT", 1
                 
-                ' Generate detailed planet description
                 desc$ = GeneratePlanetDescription$(sysDescSeed(hyperspaceTarget))
                 
-                ' Split description across two lines if it's long
                 IF LEN(desc$) > 45 THEN
                     splitPos = 45
-                    ' Find a space to split at
                     WHILE MID$(desc$, splitPos, 1) <> " " AND splitPos > 1
                         splitPos = splitPos - 1
                     WEND
@@ -1829,62 +1918,47 @@ WaitForKeypress:
             ELSEIF jumpDist = 0 THEN
                 TEXT 10, 100, "Current system: " + sysName$(hyperspaceTarget), "LT", 1
                 TEXT 10, 140, "No jump necessary", "LT", 1
-                hyperspaceTarget = -1  ' Clear target as it's current system
+                hyperspaceTarget = -1
             ELSE
                 TEXT 10, 100, "System: " + sysName$(hyperspaceTarget), "LT", 1
                 TEXT 10, 120, "Distance: " + STR$(INT(jumpDist * 10) / 10) + " LY", "LT", 1
                 TEXT 10, 140, "INSUFFICIENT FUEL FOR JUMP", "LT", 1
-                hyperspaceTarget = -1  ' Clear invalid target
+                hyperspaceTarget = -1
             ENDIF
             
             PAUSE 2000
             RETURN
         ENDIF
         
-            ' G key to show galaxy selection screen
             IF key$ = "g" OR key$ = "G" THEN
-                ' Draw galaxy selection screen
                 CLS
                 GOSUB DrawGalaxySelector
             ENDIF
             
-            ' ? or / key to show controls
             IF key$ = "?" OR key$ = "/" THEN
                 GOSUB ShowControls
                 needsUpdate = 1
-            ENDIF        ' Exit map on any other key
+            ENDIF
         IF key$ <> "" THEN RETURN
     LOOP
 RETURN
 
-' Drawing subroutine
+
 DrawShip:
-    ' In camera-centric view, ship is always fixed in the center, not rotating
-    ' So we skip all the rotation calculations and draw the ship in its default orientation
-    
-    ' Transform all vertices - fixed orientation
     FOR i = 0 TO 7
-        ' Get vertex coordinates
         x = vertices(i, 0)
         y = vertices(i, 1)
         z = vertices(i, 2)
         
-        ' Apply a fixed rotation to the ship model so it's visible from a good angle
-        ' This makes the ship appear to be pointing "forward" from the player's viewpoint
-        
-        ' First rotate around X axis slightly to see from above
         tempY = y * COS(0.2) - z * SIN(0.2)
         tempZ = y * SIN(0.2) + z * COS(0.2)
         
-        ' Keep x the same
         x = x
         y = tempY
         z = tempZ
         
-        ' Keep ship centered in screen
-        z = z + 250  ' Fixed camera distance
+        z = z + 250
         
-        ' Project 3D to 2D
         IF z > 0 THEN
             scale = 200 / z
             points(i, 0) = x * scale + CENTERX
@@ -1896,7 +1970,6 @@ DrawShip:
         ENDIF
     NEXT i
     
-    ' Draw filled triangles
     FOR i = 0 TO 6
         v1 = faces(i, 0)
         v2 = faces(i, 1)
@@ -1914,7 +1987,6 @@ DrawShip:
         ENDIF
     NEXT i
     
-    ' Draw wireframe edges
     FOR i = 0 TO 11
         v1 = edges(i, 0)
         v2 = edges(i, 1)
@@ -1930,24 +2002,51 @@ DrawShip:
     NEXT i
 RETURN
 
-' Show controls help screen
 ShowControls:
     CLS
-    FONT #7
-    TEXT CENTERX, 30, "FLIGHT CONTROLS", "CT", 1
-    TEXT CENTERX, 60, "Arrow Keys: Control ship orientation", "CT", 1
-    TEXT CENTERX, 80, "← →: Turn left/right (yaw)", "CT", 1
-    TEXT CENTERX, 100, "↑ ↓: Pitch down/up", "CT", 1
-    TEXT CENTERX, 120, "R: Roll", "CT", 1
-    TEXT CENTERX, 150, "W/S: Increase/decrease thrust", "CT", 1
-    TEXT CENTERX, 180, "H: Hyperspace map", "CT", 1
-    TEXT CENTERX, SHEIGHT-40, "Press any key to continue", "CT", 1
+    GOSUB SetDefaultFont
+    TEXT CENTERX, 30, "FLIGHT CONTROLS", "CT", 7
+    TEXT CENTERX, 60, "Arrow Keys: Control ship orientation", "CT", 7
+    TEXT CENTERX, 80, "← →: Turn left/right (yaw)", "CT", 7
+    TEXT CENTERX, 100, "↑ ↓: Pitch down/up", "CT", 7
+    TEXT CENTERX, 120, "R: Roll", "CT", 7
+    TEXT CENTERX, 150, "W/S: Increase/decrease thrust", "CT", 7
+    TEXT CENTERX, 180, "H: Hyperspace map", "CT", 7
+    TEXT CENTERX, SHEIGHT-40, "Press any key to continue", "CT", 7
     
-    ' Wait for keypress
     DO
         key$ = INKEY$
         IF key$ <> "" THEN EXIT DO
     LOOP
+RETURN
+
+InitFrameBuffer:
+    ' Initialize frame buffer system (software-based since BUFFER command not available)
+    currentBuffer = BUFFER_BACK
+RETURN
+
+ClearFrameBuffer:
+    ' Clear the screen for new frame
+    CLS
+RETURN
+
+SwapFrameBuffers:
+    ' Software frame buffer swap (no hardware double buffering available)
+    ' Simply track current buffer state for future optimizations
+    IF currentBuffer = BUFFER_BACK THEN
+        currentBuffer = BUFFER_SCREEN
+    ELSE
+        currentBuffer = BUFFER_BACK
+    ENDIF
+RETURN
+
+SetDefaultFont:
+    FONT #7
+RETURN
+
+DrawText:
+    GOSUB SetDefaultFont
+    TEXT textX, textY, text$, textAlign$, 7  ' Use font 7 consistently
 RETURN
 
 ' End of program
