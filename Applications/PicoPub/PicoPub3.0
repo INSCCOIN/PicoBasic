@@ -1,0 +1,118 @@
+' PicoPub 3.0 - Psram optimization 
+' Unable to test on PicoCalc, works on MMBasic windows
+' INSCCOIN 2026
+Option EXPLICIT
+
+' --- Configuration ---
+Dim string FILENAME$
+Dim integer HRES = MM.HRES, VRES = MM.VRES
+Dim integer CHAR_W = 8, CHAR_H = 8
+Dim integer MAX_LINE_LEN = HRES / CHAR_W
+Dim integer linesPerPage = (VRES / CHAR_H) - 2
+
+' Cache Settings (PSRAM)
+Dim integer maxLines = 20000
+Dim string book$(maxLines) 
+Dim integer totalLines, currentTopLine = 1
+
+' Colors
+Dim integer colorIndex = 0
+Dim integer colorList(5) = (RGB(WHITE), RGB(YELLOW), RGB(GREEN), RGB(CYAN), RGB(MAGENTA), RGB(RED))
+
+' --- Initialization ---
+DefineFont #10
+  ' ... (Keeping your existing Font 10 data here) ...
+End DefineFont
+Font 10, 1
+
+Input "Enter filename: ", FILENAME$
+
+' --- Load to PSRAM ---
+On Error Skip 1
+Open FILENAME$ For Input As #1
+If MM.Errno Then Print "File not found." : End
+
+Print "Caching to PSRAM..."
+totalLines = 0
+Do While Not Eof(#1) And totalLines < maxLines
+    totalLines = totalLines + 1
+    Line Input #1, book$(totalLines)
+Loop
+Close #1
+On Error Skip 0
+
+' --- Main Loop ---
+Do
+    DisplayPage
+    
+    ' Input Handling
+    Local k$ = Inkey$
+    Do while k$ = "" : k$ = Inkey$ : Loop
+    
+    Select Case k$
+        Case Chr$(128) ' Up Arrow (Single Line)
+            If currentTopLine > 1 Then currentTopLine = currentTopLine - 1
+        Case Chr$(129) ' Down Arrow (Single Line)
+            If currentTopLine < totalLines Then currentTopLine = currentTopLine + 1
+        Case Chr$(130) ' Left Arrow (Page Up)
+            currentTopLine = Max(1, currentTopLine - linesPerPage)
+        Case Chr$(131) ' Right Arrow (Page Down)
+            currentTopLine = Min(totalLines, currentTopLine + linesPerPage)
+        Case "C", "c"
+            colorIndex = (colorIndex + 1) Mod 6
+        Case "I", "i"
+            ShowInfo
+        Case "Q", "q"
+            End
+    End Select
+Loop
+
+' --- Subroutines ---
+
+Sub DisplayPage
+    Local integer i, y = 0
+    Local string l$
+    CLS
+    
+    ' Render Lines
+    For i = 0 To linesPerPage - 1
+        If (currentTopLine + i) <= totalLines Then
+            l$ = book$(currentTopLine + i)
+            ' Smart Wrap Logic (Simple version for speed)
+            If Len(l$) > MAX_LINE_LEN Then
+                Text 0, y, Left$(l$, MAX_LINE_LEN - 1) + "-", "L", 10, 1, colorList(colorIndex)
+            Else
+                Text 0, y, l$, "L", 10, 1, colorList(colorIndex)
+            End If
+            y = y + CHAR_H
+        End If
+    Next i
+    
+    ' Status Bar
+    Local integer curPage = Int(currentTopLine / linesPerPage) + 1
+    Local integer totPage = Int(totalLines / linesPerPage) + 1
+    Box 0, VRES - 10, HRES, 10, 0, , RGB(30, 0, 50) ' Purple bar
+    Text 2, VRES - 9, "Line " + Str$(currentTopLine) + "/" + Str$(totalLines) + " | Page " + Str$(curPage), "L", 1, 1, RGB(YELLOW)
+    
+    ' Progress Bar Line
+    Line 0, VRES-1, (currentTopLine/totalLines)*HRES, VRES-1, 1, RGB(GREEN)
+End Sub
+
+Sub ShowInfo
+    CLS
+    Print "--- BOOK INFO ---"
+    Print "File:   "; FILENAME$
+    Print "Lines:  "; totalLines
+    Print "Memory: PSRAM Active"
+    Print "-----------------"
+    Print "Press any key..."
+    Do : Loop Until Inkey$ <> ""
+End Sub
+
+Function Max(a, b)
+    If a > b Then Max = a Else Max = b
+End Function
+
+Function Min(a, b)
+    If a < b Then Min = a Else Min = b
+End Function
