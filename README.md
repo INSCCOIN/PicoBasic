@@ -1,6 +1,6 @@
-- I've removed a bunch of non-working apps, guess windows MMbasic isnt the same as Pico MMBasic. I'll continue trying to develop for the PicoCalc now that i've received my replacement screens.
+- I have focused my attention on micropython development, I will no longer be updating these applications. 
 
-- Please see Worklist.md for more information on programs currently being worked on.
+
 
 ## Requirements
 - PicoCalc or compatible device
